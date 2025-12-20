@@ -1,4 +1,4 @@
-📂 Smart File Organizer (Windows)
+## 📂 Smart File Organizer (Windows)
 
 A background Windows utility written in C++ that automatically monitors the Downloads folder and organizes files into categorized directories in real time.
 
@@ -7,7 +7,7 @@ The application runs silently in the background, waits for downloads to finish b
 
 
 
-✨ Features :
+## ✨ Features :
 
 📁 Real-time monitoring of the Downloads folder
 
@@ -27,20 +27,29 @@ The application runs silently in the background, waits for downloads to finish b
 
 
 
-🗂️ File Categories :
+## 🗂️ File Categories :
+
 Category	        Extensions
-Images	        .jpg, .jpeg, .png, .gif
-Documents	    .pdf, .docx, .txt, .pptx
-Videos	        .mp4, .mkv, .avi
-Music	        .mp3, .wav, .aac
-Archives	    .zip, .rar, .7z
-Programs	    .exe, .msi
-Code	        .cpp, .c, .py, .java, .js
-Others	        All remaining files
+
+Images	     :   .jpg, .jpeg, .png, .gif
+
+Documents	  :  .pdf, .docx, .txt, .pptx
+
+Videos	     :   .mp4, .mkv, .avi
+
+Music	      :  .mp3, .wav, .aac
+
+Archives	  :  .zip, .rar, .7z
+
+Programs	  :  .exe, .msi
+
+Code	      :  .cpp, .c, .py, .java, .js
+
+Others	     :   All remaining files
 
 
 
-🖥️ Technologies Used:
+## 🖥️ Technologies Used:
 
 C++
 
@@ -55,7 +64,7 @@ Multithreading (std::thread)
 Unicode (UTF-16)
 
 
-▶️ Run:
+## ▶️ Run:
 
 organizer.exe
 
@@ -79,7 +88,7 @@ C:\Users\<username>\Downloads
 
 and organizes files as soon as downloads complete.
 
-🛑 Stop the Application:
+## 🛑 Stop the Application:
 
 You can stop the application using any standard Windows method:
 
@@ -90,7 +99,7 @@ Or use:
 taskkill /IM organizer.exe
 ```
 
-📝 Logging:
+## 📝 Logging:
 
 All file operations are logged to:
 
@@ -102,7 +111,7 @@ Example:
 [2025-01-10 14:32:01] Moved notes.pdf -> Documents
 
 
-👤 Author
+## 👤 Author
 
 Surya Pranav
 C++ | Windows Systems Programming
