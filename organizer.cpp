@@ -1,5 +1,5 @@
 #define UNICODE
-#define _UNICODE //not mandatory incase of non-english characyers in file name
+#define _UNICODE //not mandatory incase of non-english characters in file name
 #include <windows.h>  //gives access to win system APIs
 #include <iostream>
 #include <filesystem>
