@@ -40,7 +40,7 @@ Others	        All remaining files
 
 
 
-🖥️ Technologies Used
+🖥️ Technologies Used:
 
 C++
 
@@ -54,10 +54,13 @@ Multithreading (std::thread)
 
 Unicode (UTF-16)
 
-▶️ Build (MinGW / MSYS2)
-g++ -std=gnu++17 organizer.cpp -o organizer -mwindows
+▶️ Build (MinGW / MSYS2):
+```bash
 
-▶️ Run
+g++ -std=gnu++17 organizer.cpp -o organizer -mwindows
+```
+▶️ Run:
+
 organizer.exe
 
 
@@ -68,17 +71,18 @@ C:\Users\<username>\Downloads
 
 and organizes files as soon as downloads complete.
 
-🛑 Stop the Application
+🛑 Stop the Application:
 
 You can stop the application using any standard Windows method:
 
 End the process from Task Manager
 
 Or use:
-
+```bash
 taskkill /IM organizer.exe
+```
 
-📝 Logging
+📝 Logging:
 
 All file operations are logged to:
 
