@@ -54,15 +54,23 @@ Multithreading (std::thread)
 
 Unicode (UTF-16)
 
+
+▶️ Run:
+
+organizer.exe
+
+## 🔧 Modifying the Source Code
+
+This repository includes a precompiled Windows executable (`organizer.exe`) for convenience.
+
+If you **modify `organizer.cpp`**, you **must recompile the program** for your changes to take effect.  
+The existing executable will **not** update automatically.
+
 ▶️ Build (MinGW / MSYS2):
 ```bash
 
 g++ -std=gnu++17 organizer.cpp -o organizer -mwindows
 ```
-▶️ Run:
-
-organizer.exe
-
 
 The application automatically monitors:
 
