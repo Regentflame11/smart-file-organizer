@@ -68,6 +68,16 @@ Unicode (UTF-16)
 
 organizer.exe
 
+## Requirements
+
+- Windows 10 / Windows 11 (64-bit)
+- Microsoft Visual C++ Redistributable (x64)
+
+If the application does not start, install the latest Microsoft Visual C++ Redistributable:
+```bash
+https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist
+```
+
 ## 🔧 Modifying the Source Code
 
 This repository includes a precompiled Windows executable (`organizer.exe`) for convenience.
