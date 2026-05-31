@@ -1,0 +1,17 @@
+# Build output
+organizer
+organizer.exe
+
+# Logs
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
