@@ -41,9 +41,6 @@ jobs:
 
   build-windows:
     runs-on: windows-latest
-    defaults:
-      run:
-        shell: msys2 {0}
     steps:
       - uses: actions/checkout@v4
 
@@ -54,13 +51,15 @@ jobs:
           install: mingw-w64-x86_64-gcc
 
       - name: Build
+        shell: msys2 {0}
         run: |
           g++ -std=c++17 -O2 -Wall -Wextra -o organizer.exe organizer.cpp -mwindows -static
           ./organizer.exe --version
 
       - name: Package
+        shell: pwsh
         run: |
-          7z a smart-file-organizer-windows-x86_64.zip organizer.exe README.md LICENSE
+          Compress-Archive -Path organizer.exe, README.md, LICENSE -DestinationPath smart-file-organizer-windows-x86_64.zip
 
       - name: Upload to Release
         if: github.event_name == 'release'
