@@ -1,0 +1,71 @@
+name: Build & Release
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: [x86_64]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build static binary
+        run: |
+          g++ -std=c++17 -O2 -Wall -Wextra -o organizer organizer.cpp -lpthread -static
+          chmod +x organizer
+          ./organizer --version
+
+      - name: Package
+        run: |
+          tar -czf smart-file-organizer-linux-${{ matrix.arch }}.tar.gz organizer install.sh uninstall.sh README.md LICENSE
+
+      - name: Upload to Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: smart-file-organizer-linux-${{ matrix.arch }}.tar.gz
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-${{ matrix.arch }}
+          path: smart-file-organizer-linux-${{ matrix.arch }}.tar.gz
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up MinGW
+        uses: egor-tensin/setup-mingw@v2
+        with:
+          platform: x64
+
+      - name: Build
+        run: |
+          g++ -std=c++17 -O2 -Wall -Wextra -o organizer.exe organizer.cpp -mwindows -static
+          ./organizer.exe --version
+
+      - name: Package
+        run: |
+          7z a smart-file-organizer-windows-x86_64.zip organizer.exe README.md LICENSE
+
+      - name: Upload to Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: smart-file-organizer-windows-x86_64.zip
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-x86_64
+          path: smart-file-organizer-windows-x86_64.zip

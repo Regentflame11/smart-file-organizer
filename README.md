@@ -11,6 +11,31 @@ Works on **Linux** and **Windows**. Runs silently in the background, waits for d
 
 ---
 
+## ⬇️ Download
+
+**No compiler needed.** Grab a pre-built binary from the [Releases page](https://github.com/Regentflame11/smart-file-organizer/releases/latest):
+
+| Platform | Download |
+|----------|----------|
+| 🐧 Linux (x86_64) | `smart-file-organizer-linux-x86_64.tar.gz` |
+| 🪟 Windows (x86_64) | `smart-file-organizer-windows-x86_64.zip` |
+
+**Linux — quick install:**
+```bash
+# Download and extract
+tar -xzf smart-file-organizer-linux-x86_64.tar.gz
+
+# Run it
+./organizer
+
+# Or install with autostart
+./install.sh
+```
+
+**Windows:** Extract the zip and run `organizer.exe`.
+
+---
+
 ## ✨ Features
 
 - 📁 **Real-time monitoring** of any directory (defaults to `~/Downloads`)
@@ -57,20 +82,21 @@ Works on **Linux** and **Windows**. Runs silently in the background, waits for d
 
 ## 🐧 Linux — Quick Start
 
-### Prerequisites
+### Option 1: Download pre-built binary (recommended)
+
+See the [Download](#️-download) section above. No compiler needed.
+
+### Option 2: Build from source
 
 ```bash
-# Ubuntu / Debian
+# Install build tools (Ubuntu/Debian)
 sudo apt install g++ make
 
-# Fedora
-sudo dnf install gcc-c++ make
-
-# Arch
-sudo pacman -S gcc make
+# Fedora: sudo dnf install gcc-c++ make
+# Arch:   sudo pacman -S gcc make
 ```
 
-### Build
+#### Build
 
 ```bash
 make
@@ -176,11 +202,12 @@ Example:
 
 ```
 smart-file-organizer/
-├── organizer.cpp      # Main source (cross-platform)
-├── Makefile           # Build system (auto-detects OS)
-├── install.sh         # Linux: install binary + systemd service
-├── uninstall.sh       # Linux: clean removal
-├── LICENSE            # MIT License
+├── organizer.cpp                    # Main source (cross-platform)
+├── Makefile                         # Build system (auto-detects OS)
+├── install.sh                       # Linux: install binary + systemd service
+├── uninstall.sh                     # Linux: clean removal
+├── .github/workflows/release.yml    # CI: auto-builds binaries on release
+├── LICENSE                          # MIT License
 └── README.md
 ```
 
