@@ -26,19 +26,27 @@
 namespace fs = std::filesystem;
 
 // ─────────────────────────────────────────────
-//  Temp file detection
+//  Should we skip this file?
 // ─────────────────────────────────────────────
-// Browsers create temp files while downloading. We skip these and only
-// process the final file once the browser renames it.
-bool isTempFile(const std::string& filename) {
+// Skip hidden files, browser temp files, and system files.
+// Chromium creates temp files like ".org.chromium.Chromium.XXXXXX" during
+// downloads — moving these breaks active downloads.
+bool shouldSkipFile(const std::string& filename) {
+    // Skip hidden files (dotfiles) — these are system/temp files on Linux
+    // This catches Chromium temp files like .org.chromium.Chromium.XXXXXX
+    if (!filename.empty() && filename[0] == '.') return true;
+
     // Convert to lowercase for reliable matching
     std::string lower = filename;
     std::transform(lower.begin(), lower.end(), lower.begin(), ::tolower);
 
-    return lower.find(".crdownload") != std::string::npos || // Chrome
-           lower.find(".part")       != std::string::npos || // Firefox
-           lower.find(".tmp")        != std::string::npos || // General temp
-           lower.find(".download")   != std::string::npos;   // Safari / misc
+    // Browser temp file patterns
+    if (lower.find(".crdownload") != std::string::npos) return true; // Chrome
+    if (lower.find(".part")       != std::string::npos) return true; // Firefox
+    if (lower.find(".tmp")        != std::string::npos) return true; // General temp
+    if (lower.find(".download")   != std::string::npos) return true; // Safari / misc
+
+    return false;
 }
 
 // ─────────────────────────────────────────────
@@ -122,10 +130,11 @@ std::string getCategory(const std::string& ext) {
         e == ".key"  || e == ".numbers" || e == ".tex" || e == ".log")
         return "Documents";
 
-    // Videos
+    // Videos (including subtitles)
     if (e == ".mp4"  || e == ".mkv"  || e == ".avi"  || e == ".mov"  ||
         e == ".wmv"  || e == ".flv"  || e == ".webm" || e == ".m4v"  ||
-        e == ".mpg"  || e == ".mpeg" || e == ".3gp"  || e == ".ts")
+        e == ".mpg"  || e == ".mpeg" || e == ".3gp"  || e == ".ts"  ||
+        e == ".srt"  || e == ".sub"  || e == ".ass"  || e == ".vtt")
         return "Videos";
 
     // Music / Audio
@@ -215,7 +224,8 @@ fs::path getUniquePath(const fs::path& targetPath) {
 // ─────────────────────────────────────────────
 void processFile(const fs::path watchDir, const std::string filename,
                  const fs::path logPath) {
-    if (isTempFile(filename)) return;
+    // Skip hidden files, browser temp files, etc.
+    if (shouldSkipFile(filename)) return;
 
     fs::path fullPath = watchDir / filename;
 
@@ -232,7 +242,7 @@ void processFile(const fs::path watchDir, const std::string filename,
     if (fs::is_directory(fullPath)) return;
 
     std::string extension = fullPath.extension().string();
-    if (extension.empty()) return; // No extension, skip
+    if (extension.empty()) return; // No extension, skip (binaries, temp files, etc.)
 
     std::string category = getCategory(extension);
 
